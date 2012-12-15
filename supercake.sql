@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2012 at 07:05 PM
+-- Generation Time: Dec 15, 2012 at 09:22 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -173,6 +173,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `brand_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `number` int(11) NOT NULL,
   `quantity` double NOT NULL,
   `description` varchar(100) NOT NULL,
   `featured` tinyint(1) NOT NULL,
@@ -187,9 +188,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `measure_id`, `brand_id`, `image_id`, `name`, `quantity`, `description`, `featured`, `price`) VALUES
-(1, 1, 1, 1, 'Arroz blanco', 1, 'Parboiled', 1, 50),
-(2, 1, 1, 1, 'Saman Parboiled', 2, 'esto es re magico', 0, 80);
+INSERT INTO `products` (`id`, `measure_id`, `brand_id`, `image_id`, `name`, `number`, `quantity`, `description`, `featured`, `price`) VALUES
+(1, 1, 1, 1, 'Arroz blanco', 0, 1, 'Parboiled', 1, 50),
+(2, 1, 1, 1, 'Saman Parboiled', 0, 2, 'esto es re magico', 0, 80);
 
 -- --------------------------------------------------------
 

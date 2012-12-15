@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2012 at 07:02 PM
+-- Generation Time: Dec 15, 2012 at 09:21 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS `aisles` (
 CREATE TABLE IF NOT EXISTS `barcodes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -86,6 +88,27 @@ CREATE TABLE IF NOT EXISTS `brands` (
 
 --
 -- Dumping data for table `brands`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emails`
+--
+
+CREATE TABLE IF NOT EXISTS `emails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `branch_id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `name` varchar(80) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Sucursal_idSucursal` (`branch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `emails`
 --
 
 
@@ -136,27 +159,6 @@ CREATE TABLE IF NOT EXISTS `labels` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mailing`
---
-
-CREATE TABLE IF NOT EXISTS `mailing` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `branch_id` int(11) NOT NULL,
-  `mail` varchar(50) NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Sucursal_idSucursal` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `mailing`
---
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `measures`
 --
 
@@ -199,17 +201,16 @@ CREATE TABLE IF NOT EXISTS `products` (
   `measure_id` int(11) NOT NULL,
   `brand_id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL,
-  `barcode_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `number` int(11) NOT NULL,
   `quantity` double NOT NULL,
   `description` varchar(100) NOT NULL,
   `featured` tinyint(1) NOT NULL,
   `price` double NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `Medida_idMedida` (`measure_id`,`brand_id`,`image_id`,`barcode_id`),
+  KEY `Medida_idMedida` (`measure_id`,`brand_id`,`image_id`),
   KEY `brand_id` (`brand_id`),
-  KEY `image_id` (`image_id`),
-  KEY `barcode_id` (`barcode_id`)
+  KEY `image_id` (`image_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -307,6 +308,18 @@ INSERT INTO `user_types` (`id`, `name`) VALUES
 --
 
 --
+-- Constraints for table `barcodes`
+--
+ALTER TABLE `barcodes`
+  ADD CONSTRAINT `barcodes_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
+-- Constraints for table `emails`
+--
+ALTER TABLE `emails`
+  ADD CONSTRAINT `emails_ibfk_2` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`);
+
+--
 -- Constraints for table `labels`
 --
 ALTER TABLE `labels`
@@ -316,19 +329,12 @@ ALTER TABLE `labels`
   ADD CONSTRAINT `labels_ibfk_4` FOREIGN KEY (`aisle_id`) REFERENCES `aisles` (`id`);
 
 --
--- Constraints for table `mailing`
---
-ALTER TABLE `mailing`
-  ADD CONSTRAINT `mailing_ibfk_2` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`);
-
---
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`measure_id`) REFERENCES `measures` (`id`),
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`),
-  ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`),
-  ADD CONSTRAINT `products_ibfk_4` FOREIGN KEY (`barcode_id`) REFERENCES `barcodes` (`id`);
+  ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`);
 
 --
 -- Constraints for table `promotions`
