@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 15, 2012 at 09:21 PM
+-- Generation Time: Dec 26, 2012 at 07:31 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_type_id` int(11) NOT NULL,
   `name` varchar(80) NOT NULL,
-  `password` char(10) NOT NULL,
+  `password` char(100) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_type_id` (`user_type_id`)
