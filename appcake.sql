@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 26, 2012 at 07:31 PM
+-- Generation Time: Dec 28, 2012 at 06:23 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -269,17 +269,19 @@ CREATE TABLE IF NOT EXISTS `shelves` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_type_id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL,
+  `username` varchar(80) NOT NULL,
   `password` char(100) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_type_id` (`user_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`
 --
 
+INSERT INTO `users` (`id`, `user_type_id`, `username`, `password`, `active`) VALUES
+(2, 1, 'admin', '891226c92695035081bedb06ec4def6cb91eb0e9', 1);
 
 -- --------------------------------------------------------
 
